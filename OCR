@@ -1,0 +1,21 @@
+from PIL import Image
+import pytesseract
+import pandas as pd
+
+# Si vous êtes sous Windows, spécifiez le chemin de tesseract
+# pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
+# Charger l'image
+image_path = "image_exemple.jpg"
+image = Image.open(image_path)
+
+# Extraire le texte
+texte = pytesseract.image_to_string(image, lang='fra')  # 'fra' pour le français
+
+# Créer un DataFrame avec le texte
+df = pd.DataFrame({"Texte_extrait": [texte]})
+
+# Enregistrer dans un fichier Excel
+df.to_excel("texte_extrait.xlsx", index=False)
+
+print("Le texte a été extrait et enregistré dans 'texte_extrait.xlsx'")
